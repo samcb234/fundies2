@@ -219,13 +219,32 @@ class ExamplesEmbroidery{
       new ConsLoMotif("second level", this.poppy,
           new ConsLoMotif("base", this.rose, this.mtPattern)));
   ILoMotif pillowCover = new ConsLoMotif("pillow cover", this.bird, 
-      new ConsLoMotif("base", this.tree, this.flowers));
+      new ConsLoMotif("base", this.tree, this.flowers));  
   
-  
-  //test method averageDiff
+  //tests for averageDiff
   boolean testAverageDiff(Tester t) {
     return t.checkExpect(this.flowers.averageDiff(), 4.316666666666666) &&
            t.checkExpect(this.pillowCover.averageDiff(), 4.09) &&
-           t.checkExpect(this.flowers.allNames(), "flowers: daisy (cross stitch), poppy (chain stitch), rose (cross stitch).");
+           t.checkExpect(this.mtPattern.averageDiff(), 0);
+    //tests for allNames
+    return t.checkExpect(this.flowers.allNames(), 
+        "flowers: daisy (cross stitch), poppy (chain stitch), rose (cross stitch).") &&
+        t.checkExpect(this.mtPattern.allnames(), null);
+    //tests for sumDiff
+    return t.checkExpect(this.flowers.sumDiff(), 12.95) &&
+        t.checkExpect(this.mtPattern.sumDiff(), 0);
+    //tests for totalMotifs
+    return t.checkExpect(this.flowers.totalMotifs(), 3) &&
+        t.checkExpect(this.mtPattern.totalMotifs(), 0)
+    //tests for giveDiff
+    return t.checkExpect(this.bird.giveDiff(), 4.5);
+    //tests for giveName
+    return t.checkExpect(this.bird.giveName(), ", bird (cross stitch)") &&
+        t.checkExpect(this.tree.giveName(), ", tree (chain stitch)");
+    //tests for startSentence
+    return t.checkExpect(this.bird.startSentence(), "bird (cross stitch)") &&
+        t.checkExpect(this.tree.startSentence(), "tree (chain stitch)");
+    //tests for stitchNames
+    return t.checkExpect(this.mtPattern.stitchNames(), ".")
   }
 }
