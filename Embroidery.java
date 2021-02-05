@@ -1,11 +1,15 @@
 import tester.Tester;
 
 interface IMotif {
-  
-  //to return the difficulty
+  /*methods:
+   * this.giveDiff()
+   * this.giveName()
+   * this.startSentence()
+   */
+  //to return the difficulty of a motif
   double giveDiff();
   
-  // to return the name of the motif
+  // to return the name of a motif
   String giveName();
   
   //to create the starting words
@@ -14,6 +18,16 @@ interface IMotif {
 }
 
 class CrossStitchMotif implements IMotif {
+  /*methods:
+   * this.giveDiff()
+   * this.giveName()
+   * this.startSentence()
+   * fields:
+   * this.description -- String
+   * this.difficulty -- int
+   * methods for fields:
+   */
+  
   String description;
   double difficulty;
   
@@ -22,25 +36,33 @@ class CrossStitchMotif implements IMotif {
     this.difficulty = difficulty;
   }
 
-  @Override
+  //to find the difficulty of a cross stitch
   public double giveDiff() {
     return difficulty;
   }
   
-  @Override
+  //to add the name of a motif
   public String giveName() {
     return ", " + description + " (cross stitch)";
   }
 
-  @Override
+  //to begin a sentence
   public String startSentence() {
    return description + " (cross stitch)";
   }
 }
   
-
-
 class ChainStitchMotif implements IMotif {
+  
+  /*methods:
+   * this.giveDiff()
+   * this.giveName()
+   * this.startSentence()
+   * fields:
+   * this.description -- String
+   * this.difficulty -- int
+   * methods for fields:
+   */
   String description;
   double difficulty;
   
@@ -49,27 +71,32 @@ class ChainStitchMotif implements IMotif {
     this.difficulty = difficulty;
   }
 
-  @Override
+  //to give the difficulty of a chain stitch
   public double giveDiff() {
     return difficulty;
   }
   
-  @Override
+  //to give the name of a chain stitch
   public String giveName() {
     return  ", " + description + " (chain stitch)";
   }
 
-  @Override
+  //to start a sentence
   public String startSentence() {
     return description + " (chain stitch)";
   }
-  
-
 }
-
 
 interface ILoMotif {
  
+  /*methods:
+   * this.averageDiff()
+   * this.sumDiff()
+   * this.totalMotifs()
+   * this.allNames()
+   * this.stitchNames()
+   */
+  
   //to calculate the average difficulty of a series of motifs
   double averageDiff();
   
@@ -88,41 +115,62 @@ interface ILoMotif {
 
 class MtLoMotif implements ILoMotif {
   
+  /*methods:
+   * this.averageDiff()
+   * this.sumDiff()
+   * this.totalMotifs()
+   * this.allNames()
+   * this.stitchNames()
+   */
+  
   MtLoMotif(){}
 
-  @Override
+  //to find the average difficulty of an empty LoMotif
   public double averageDiff() {
-    // TODO Auto-generated method stub
     return 0;
   }
 
-  @Override
+  //to find sum of an empty LoMotif
   public double sumDiff() {
-    // TODO Auto-generated method stub
     return 0;
   }
 
-  @Override
+  //to find total motifs in an empty LoMotifs
   public int totalMotifs() {
-    // TODO Auto-generated method stub
     return 0;
   }
   
-  @Override
+  //to returns a string of names from an empty LoMotif
   public String allNames() {
     return null;
   }
 
-  @Override
+  //to give the stitch names for an empty LoMotif
   public String stitchNames() {
-    
     return ".";
-  }
-  
-  
+  } 
 }
 
 class ConsLoMotif implements ILoMotif {
+  
+  /*methods:
+   * this.averageDiff()
+   * this.sumDiff()
+   * this.totalMotifs()
+   * this.allNames()
+   * this.stitchNames()
+   * fields:
+   * this.first -- IMotif
+   * this.rest -- ILoMotif
+   * methods for fields:
+   * first.giveDiff()
+   * rest.sumDiff()
+   * rest.totalMotifs()
+   * first.startSentence()
+   * rest.stitchNames()
+   * first.giveName()
+   */
+  
   String description;
   IMotif first;
   ILoMotif rest;
@@ -133,30 +181,29 @@ class ConsLoMotif implements ILoMotif {
     this.rest = rest;
   }
 
-  @Override
+  //to find the average difficulty of a list of Motifs
   public double averageDiff() {
     return this.sumDiff() / this.totalMotifs();
   }
 
-  @Override
+  //to sum the difficulties of a list of Motifs
   public double sumDiff() {
     return first.giveDiff() + rest.sumDiff();
   }
 
-  @Override
+  //to find the total number of Motifs in a list
   public int totalMotifs() {
     return 1 + rest.totalMotifs();
   }
   
-  @Override
+  //returns a string of every Motif name in a list
   public String allNames() {
     return this.description + ": " + first.startSentence() + rest.stitchNames();
   }
 
-  @Override
+  //returns a string of Motif names from a list
   public String stitchNames() {
-    return first.giveName() + rest.stitchNames();
-  
+    return first.giveName() + rest.stitchNames(); 
   }
 }
 
